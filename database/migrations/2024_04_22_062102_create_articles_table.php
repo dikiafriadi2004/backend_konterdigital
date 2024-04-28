@@ -17,15 +17,17 @@ return new class extends Migration
             $table->string('short_description', 355);
             $table->string('slug')->unique();
             $table->longText('content');
+            $table->string('thumbnail');
             $table->timestamp('article_date');
             
-            $table->timestamps();
-
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            
+            $table->timestamps();
+
         });
     }
 
