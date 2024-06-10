@@ -15,7 +15,7 @@ class CategoryController extends Controller
             'success' => true,
             'message' => 'List Categories',
             'data' => $categories
-        ]);
+        ], 200);
     }
 
     public function store(Request $request)
@@ -51,5 +51,36 @@ class CategoryController extends Controller
             'data' => $category
         ], 200);
 
+    }
+
+    public function show($id) 
+    {
+        $category = Category::find($id);
+
+        if(!$category){
+            return response()->json([
+                'success' => false,
+                'message' => "Category for id: " .$id. " not found",
+                'data' => null
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Detail Category",
+            'data' => $category
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $category = Category::find($id);
+        $category->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Category id: ". $id . " has been successfully deleted",
+            'data' => null
+        ], 200);
     }
 }
